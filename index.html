@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>PediGen - Pedigree Generator</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <a href="https://github.com/shawnlehner/PediGen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+    <div class="modal" id="edit-modal">
+        <div class="dialog">
+            <div class="edit-form">
+                <div class="edit-head">
+                    <h4 id="animal-form-title"></h4>
+                    <p id="animal-form-prompt"></p>
+                    <p class="error" id="animal-edit-error"></p>
+                </div>
+                <div>
+                    <label for="animal-name">Animal Name</label>
+                    <input class="u-full-width" type="text" placeholder="e.g. Domino" id="animal-name">
+                </div>
+                <div>
+                    <label for="animal-name">Animal Description</label>
+                    <input class="u-full-width" type="text" placeholder="e.g. Broken Black Buck" id="animal-description">
+                </div>
+                <div>
+                    <table class="u-full-width trait-table">
+                        <thead>
+                            <tr>
+                                <th>Trait Name</th>
+                                <th>Trait Description</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="trait-table-body">
+                            <script type="text/template" id="trait-template">
+                                <td>
+                                    <input class="u-full-width trait-name" type="text" placeholder="e.g. DOB">
+                                </td>
+                                <td>
+                                    <input class="u-full-width trait-description" type="text" placeholder="e.g. 7/17/2017">
+                                </td>
+                                <td class="row-controls">
+                                    <a href="#remove" class="remove-trait fa fa-times"></a>
+                                </td>
+                            </script>
+                        </tbody>
+                    </table>
+                    <div class="trait-controls">
+                        <a href="#addTrait" id="add-trait-button">+ Add Trait</a>
+                    </div>
+                </div>
+                <button id="animal-update-button" class="button button-primary u-full-width">Update Animal</button>
+                <button id="animal-cancel-button" class="button u-full-width">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="pedigree-modal">
+        <div class="pedigree-output-controls">
+            <button class="button button-primary" id="print-pedigree"><span class="fa fa-print"></span> Print</button>
+            <button class="button button-primary" id="close-pedigree"><span class="fa fa-times"></span> Close</button>
+        </div>
+        <div class="pedigree-output-wrapper">
+            <div class="certificate-wrapper">
+                <div class="certificate">
+                    <div class="cert-header" id="output-header"></div>
+                    <div class="pedigree" id="output-pedigree"></div>
+                    <div class="cert-footer" id="output-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page">
+        <input type="file" id="logo-upload-input">
+        <div class="header container">
+            <h1>PediGen</h1>
+            <p>
+                Super Simple and free to use HTML Pedigree Generator. This simple interface allows you to input your animal's details (and meta information depending on species)
+                and will generate an HTML pedigree which you can use for printing.
+            </p>
+            <p id="get-started">
+                <img src="images/example.png" />
+                Ready to get started? Click the button below to add your first animal and start building your pedigree!<br />
+                <button class="button button-primary" id="get-started-button">Get Started</button>
+            </p>
+        </div>
+        <div class="gen-row" id="generator">
+            <div class="gen-container">
+                <div id="pedigree-header"><h3 contenteditable="true">Your Pedigree</h3></div>
+                <div><small><a href="#upload" id="upload-logo">UPLOAD LOGO</a></small></div>
+                <div class="pedigree" id="pedigree-container"></div>
+                <div id="pedigree-footer" contenteditable="true">This pedigree is correct and accurate to the best of our knowledge.</div>
+                <div class="marker-controls">
+                    <button class="button button-primary" id="add-generation"><span class="fa fa-plus"></span> Add Generation</button>
+                    <button class="button button-primary" id="generate-pedigree"><span class="fa fa-cloud-download"></span> Generate Pedigree</button>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="container">
+                <h4>Background</h4>
+                <p>
+                    This whole project started when my daughter was trying to find a tool to generate pedigrees for her bunnies. After some online searches turned up virtually no good results; many
+                    of which were trying to charge a premium for very dated solutions. So we decided to roll our own solution and PediGen was developed. Anyone who finds this tool useful
+                    should check out her site: <a href="http://chloeshollandlops.weebly.com" target="_blank">http://chloeshollandlops.weebly.com</a>.
+                </p>
+                <hr>
+                <h4>Source Code</h4>
+                <p>
+                    The source code for the API as well as this documentation is available on GitHub. Feel free to check out the project at <a href="https://github.com/shawnlehner/PediGen">https://github.com/shawnlehner/PediGen</a>
+                </p>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="container">
+                This free to use utility is courtesy <a href="https://www.shawnlehner.com">Shawn Lehner</a>. Enjoy!
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='js/scripts.js'></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-9527837-4', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>
